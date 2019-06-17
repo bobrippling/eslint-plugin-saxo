@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.4] - 2019-06-17
+- Rename cy-pause to cy-developer and improve prevention of both cy.pause() and cy.debug()
+
 ## [1.4.3] - 2019-06-03
 - Add cy-pause to prevent cy.pause() from being committed to master
 

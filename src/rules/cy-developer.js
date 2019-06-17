@@ -2,10 +2,12 @@
 
 const { firstMemberExpression } = require('../astUtils');
 
+const disallowedMembers = ['pause', 'debug'];
+
 module.exports = {
     meta: {
         docs: {
-            description: 'cy.pause() stops commands from running to allow interaction, usually this isn\'t something we want to merge',
+            description: 'cy.pause()/cy.debug stops commands from running to allow interaction, usually this isn\'t something we want to merge',
             recommended: false,
         },
     },
@@ -28,7 +30,7 @@ module.exports = {
                 // <something>.pause()
                 //             ^~~~~
                 const { property: { name: memberName } } = callee;
-                if (memberName !== 'pause') {
+                if (disallowedMembers.indexOf(memberName) === -1) {
                     return;
                 }
 
@@ -56,7 +58,7 @@ module.exports = {
 
                 context.report({
                     node,
-                    message: 'Do not use cy.pause()',
+                    message: `Do not use cy.${memberName}()`,
                 });
             },
         };
